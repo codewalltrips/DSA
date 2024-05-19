@@ -1,0 +1,111 @@
+/*Code for Program to perform merge sort in C++ Programming*/
+
+
+
+#include <iostream.h>
+#include <conio.h>
+#define MAX 10
+
+staticint merge_arr[MAX+MAX],sort_arr[MAX+MAX];
+
+class mergesort{
+    int arr1[MAX],arr2[MAX],n1,n2,n3;
+    public:
+    void getdata();
+    void showdata(int);
+    void mergeLogic();
+    void sortLogic();
+};
+
+void mergesort :: getdata(){
+    int i;
+    cout<<"\n--Data Must be Entered in Sorted Order for each Array--\n\n";
+    cout<<"How many elements you require 1st -> Array: ";
+    cin>>n1;
+    for(i=0;i<n1;i++)
+        cin>>arr1[i];
+    cout<<"How many elements you require 2nd -> Array: ";
+    cin>>n2;
+    for(i=0;i<n2;i++)
+        cin>>arr2[i];
+    n3=n1+n2;
+}
+
+void mergesort :: showdata(int select){
+    int i;
+    if(select==1){
+        cout<<"\n\n--Array 1--\n";
+        for(i=0;i<n1;i++)
+            cout<<arr1[i]<<"   ";
+    }
+    elseif(select==2){
+        cout<<"\n\n--Array 2--\n";
+        for(i=0;i<n2;i++)
+            cout<<arr2[i]<<"   ";
+    }
+    elseif(select==3){
+        cout<<"\n\n--Sorted Array--\n";
+        for(i=0;i<n3;i++)
+            cout<<sort_arr[i]<<"   ";
+    }
+}
+
+
+
+void mergesort :: mergeLogic(){
+    int i,j,c;
+    for(i=0;i<n1;i++)
+        merge_arr[i] = arr1[i];
+    for(j=i,c=0;j<n3;j++,c++)
+        merge_arr[j] = arr2[c];
+}
+
+
+void mergesort :: sortLogic(){
+    //before sort call mergeLogic
+    mergeLogic();
+
+    int i,j,first=0,second=n1,third=n3;
+    i=first;
+    j=second;
+    staticint c=0;
+
+    while(i<second && j<third){
+        if(merge_arr[i] < merge_arr[j]){
+            sort_arr[c]=merge_arr[i];
+            i++;
+        }
+        else{
+            sort_arr[c]=merge_arr[j];
+            j++;
+        }
+        c++;
+    }
+
+    if(i<second){
+        while(i<second){
+            sort_arr[c]=merge_arr[i];
+            i++;
+            c++;
+        }
+    }
+
+    if(j<third){
+        while(j<third){
+            sort_arr[c]=merge_arr[j];
+            j++;
+            c++;
+        }
+    }
+}
+/*void mergesort :: sortLogic(){    static int i,j,c=0;    while(i<n1 && j<n2){        if(arr1[i] < arr2[j]){            sort_arr[c]=arr1[i];            i++;        }        else{            sort_arr[c]=arr2[j];            j++;        }        c++;    }    if(i<n1){        while(i<n1){            sort_arr[c]=arr1[i];            i++;            c++;        }    }    if(j<n2){        while(j<n2){            sort_arr[c]=arr2[j];            j++;            c++;        }    }}  */void main(){
+    clrscr();
+    cout<<"\n*****Merge Sort*****\n";
+    mergesort obj;
+    obj.getdata();
+    obj.sortLogic();
+    obj.showdata(1);
+    obj.showdata(2);
+    obj.showdata(3);
+    getch();
+}
